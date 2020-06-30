@@ -9,8 +9,10 @@ class DiagnoseProcess:
         self.wm = self.weight_matrix.copy(deep=True)
         self.asked = []
         self.positive = []
-        self.age = 'Adult'
+        self.age = 'Adults'
         self.gender = 'Male'
+        # self.map = {'Male': 28, 'Female': 29, 'Children': 30, 'Adults': 31, 'Elderly': 32}
+        self.diagnosis = ''
 
     def reduce(self):
         self.wm = self.weight_matrix.copy(deep=True)
@@ -50,16 +52,45 @@ class DiagnoseProcess:
         for symp in self.positive:
             symptom_list[symp] = 1
 
+        symptom_list[self.gender] = 1
+        symptom_list[self.age] = 1
+
         diagnosis_result = self.weight_matrix.dot(symptom_list)
         s = sum(diagnosis_result)
         for key in diagnosis_result.index:
             if diagnosis_result.loc[key] == 0:
                 diagnosis_result.drop(key, inplace=True)
             else:
-                diagnosis_result.loc[key] = round(diagnosis_result.loc[key]/s, 2)
+                diagnosis_result.loc[key] = round(diagnosis_result.loc[key] / s, 2)
 
         diagnosis_result.sort_values(ascending=False, inplace=True)
+        self.diagnosis = diagnosis_result.keys()[0]
         return diagnosis_result
+
+    def recommendation(self):
+        drugs = pd.read_csv('polls/templates/polls/drugrec.csv', index_col=0)
+        labs = pd.read_csv('polls/templates/polls/labrec.csv', index_col=0)
+        drug = []
+        lab = []
+        if self.diagnosis in drugs.index:
+            for c in drugs.columns:
+                if str(drugs.loc[self.diagnosis, c]) != 'nan':
+                    drug.append(str(drugs.loc[self.diagnosis, c]).strip())
+        if self.diagnosis in labs.index:
+            for c in labs.columns:
+                if str(labs.loc[self.diagnosis, c]) != 'nan':
+                    lab.append(str(labs.loc[self.diagnosis, c]).strip())
+        if not drug:
+            drug_str = "No drug recommendations found"
+        else:
+            drug_str = ', '.join(drug)
+        if not lab:
+            lab_str = "No lab test recommendations found"
+        else:
+            lab_str = ', '.join(lab)
+
+        recommend = [str(drug_str), str(lab_str)]
+        return recommend
 
 
 class Question:

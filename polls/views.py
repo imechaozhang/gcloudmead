@@ -20,8 +20,12 @@ class InitialView(View):
     @staticmethod
     def post(request):
         selected = request.POST.get('selected', '')
+        gender = request.POST.get('gender', '')
+        age_group = request.POST.get('age', '')
         request.session['asked'] = [selected]
         request.session['positive'] = [selected]
+        request.session['gender'] = gender
+        request.session['age'] = age_group
         return redirect(reverse('polls:index'))
 
 
@@ -33,18 +37,21 @@ class QuestionView(View):
         self.dp = DiagnoseProcess()
 
     def get(self, request):
-        asked = request.session.get('asked')
-        positive = request.session.get('positive')
-        self.dp.asked = asked
-        self.dp.positive = positive
+        self.dp.gender = request.session.get('gender')
+        self.dp.age = request.session.get('age')
+        self.dp.asked = request.session.get('asked')
+        self.dp.positive = request.session.get('positive')
         self.dp.reduce()
 
         if self.dp.time_to_conclude():
             diagnosis = self.dp.check()
             request.session['diagnosis'] = diagnosis
+            recommend = self.dp.recommendation()
+            drugs = recommend[0]
+            labs = recommend[1]
             request.session.flush()
             messages.add_message(request, messages.INFO, 'Here is your diagnosis')
-            return render(request, 'polls/conclude.html', {'diagnosis': dict(diagnosis)})
+            return render(request, 'polls/conclude.html', {'diagnosis': dict(diagnosis), 'drugs': drugs, 'labs': labs})
 
         symptom = self.dp.next_symptom()
         question = Question(

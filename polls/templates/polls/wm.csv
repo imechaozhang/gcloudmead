@@ -1,4 +1,4 @@
-,Headache,Abdominal_pain,Cold_sweats,Fever,Sore_throat,Pain_in_the_limbs,Cough,Runny_nose,Chest_pain,Sweating,Tiredness,Unconsciousness_short,Weight_gain,Stuffy_nose,Shortness_of_breath,Chest_tightness,Swollen_glands_on_the_neck,Nausea,Heartburn,Burning_in_the_throat,Chills,Sleeplessness,Reduced_appetite,weakness,Going_black_before_the_eyes,Sputum,Sneezing,Anxiety,Male,Female,Child,Adult,Elder
+,Headache,Abdominal_pain,Cold_sweats,Fever,Sore_throat,Pain_in_the_limbs,Cough,Runny_nose,Chest_pain,Sweating,Tiredness,Unconsciousness_short,Weight_gain,Stuffy_nose,Shortness_of_breath,Chest_tightness,Swollen_glands_on_the_neck,Nausea,Heartburn,Burning_in_the_throat,Chills,Sleeplessness,Reduced_appetite,weakness,Going_black_before_the_eyes,Sputum,Sneezing,Anxiety,Male,Female,Children,Adults,Elderly
 Headache,0.9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 Coronary heart disease,0,0,0.539999924,0,0,0,0,0,0.72,0,0,0.4803202,0,0,0.192,0.9,0,0,0.108,0,0,0,0,0,0.9,0,0,0,0,0,0,0,0
 Flu,0.4153846,0,0,0.675,0.405,0.675,0.50625,0.9,0.18,0.9,0.675,0,0,0.9,0.9,0,0.5625,0,0,0.54,0.9,0,0.61363636,0,0,0.73125,0.675,0,0,0,0,0,0
