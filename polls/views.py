@@ -15,7 +15,7 @@ class InitialView(View):
 
     def get(self, request):
         return render(request, self.template_name,
-                      {'symptom_list': json.dumps(list(DiagnoseProcess.weight_matrix.columns))})
+                      {'symptom_list': json.dumps(list(DiagnoseProcess.weight_matrix.columns)[:-5])})
 
     @staticmethod
     def post(request):
