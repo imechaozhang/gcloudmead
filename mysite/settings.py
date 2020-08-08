@@ -94,7 +94,7 @@ if os.getenv('GAE_APPLICATION', None):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/meadgcloud:us-central1:meadmysql',
+            'HOST': '/cloudsql/gentle-bot-281500:us-central1:meadmysql',
             'USER': 'chao',
             'PASSWORD': '3f5hr7z9a0!!',
             'NAME': 'polls',
@@ -109,12 +109,8 @@ else:
     # See https://cloud.google.com/sql/docs/mysql-connect-proxy
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': '127.0.0.1',
-            'PORT': '3306',
-            'NAME': 'polls',
-            'USER': 'chao',
-            'PASSWORD': '3f5hr7z9a0!!',
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
         }
     }
 # [END db_setup]
